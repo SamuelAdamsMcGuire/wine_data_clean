@@ -59,6 +59,24 @@ gsutil -m cp -r gs://name-of-bucket
 
 Once the data was stored locally I developed a module to parse the pages for the data found relevant for use in a ML prediction model that will make wine recommendation base on the users taste.  
 
+The following features were scraped:
+
+- Wine name
+- Winery name
+- Category: type of wine, i.e. red, white, sparkling
+- Designation
+- Varietal: type of grape
+- Appellation: the region the wine comes from
+- Alcohol content
+- Price
+- Rating
+- Reviewer name
+- Review
+
+Here is a link to the complete `csv` file since it was too large to push to github:
+
+[Wine Data](https://www.kaggle.com/samuelmcguire/wine-reviews-data)
+
 The next step is to preform some NLP preprocessing and train a model. The final goal is to deploy the model as a web application.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
