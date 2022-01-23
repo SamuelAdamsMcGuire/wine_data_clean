@@ -1,5 +1,7 @@
 <div id="top"></div>
 
+![Python application](https://github.com/SamuelAdamsMcGuire/wine_data_clean/workflows/Python%20application/badge.svg)
+
 <h3 align="center">Wine Data Cleaning</h3>
 
 <br />
