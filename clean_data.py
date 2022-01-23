@@ -17,11 +17,10 @@ class DataCleaner():
     def __init__(self, file_path, file_name):
         self.file_name = file_name
         self.file_path = file_path
-        with open(self.file_path+self.file_name, 'r', encoding='utf-8') as f:
-            self.html_file = f.read()
+        with open(self.file_path+self.file_name, 'r', encoding='utf-8') as wine_file:
+            self.html_file = wine_file.read()
         self.soup = BeautifulSoup(self.html_file, 'html.parser')
         self.primary = self.soup.find(class_="primary-info").find_all('li')
-        self.secondary = self.soup.find(class_="secondary-info").find_all('li')
         self.data_pure = self.soup.find_all(type="application/ld+json")[1]
         self.data_json = json.loads(str(self.data_pure).replace(\
             '<script type="application/ld+json">', '').replace('\n', '').replace(\
@@ -42,10 +41,10 @@ class DataCleaner():
         '''
         Retrieves name of winery
         '''
-        for li in self.primary:
-            if li.find(class_="info-label medium-7 columns").text.strip() == 'Winery':
-                winery = li.find(class_="info medium-9 columns").text.strip()
-                return winery
+        for list_item in self.primary:
+            if list_item.find(class_="info-label medium-7 columns").text.strip() == 'Winery':
+                winery = list_item.find(class_="info medium-9 columns").text.strip()
+            return winery
         if len(wine_dict['winery']) != len(wine_dict['wine'])-1:
             winery = np.nan
             return winery
@@ -55,10 +54,10 @@ class DataCleaner():
         Retrieves wine designation. If none is found checks designation list length to ensure
         it is the same length as the other lists.
         '''
-        for li in self.primary:
-            if li.find(class_="info-label medium-7 columns").text.strip() == 'Designation':
-                designation = li.find(class_="info medium-9 columns").text.strip()
-                return designation
+        for list_item in self.primary:
+            if list_item.find(class_="info-label medium-7 columns").text.strip() == 'Designation':
+                designation = list_item.find(class_="info medium-9 columns").text.strip()
+            return designation
         if len(wine_dict['designation']) != len(wine_dict['wine'])-1:
             designation=np.nan
             return designation
@@ -81,7 +80,7 @@ class DataCleaner():
         for info in self.soup.find_all(class_='info medium-9 columns'):
             if 'varietal' in str(info):
                 varietal = info.text.strip()
-                return varietal
+            return varietal
         if len(wine_dict['varietal']) != len(wine_dict['wine'])-1:
             varietal = np.nan
             return varietal
@@ -95,7 +94,7 @@ class DataCleaner():
         for data in data_points:
             if 'region' in str(data):
                 appellation = data.text.strip()
-                return appellation
+            return appellation
         if len(wine_dict['appellation']) != len(wine_dict['wine'])-1:
             appellation = np.nan
             return appellation
@@ -105,10 +104,11 @@ class DataCleaner():
         Retrieves wine alcohol content. If none is found checks alcohol list
         length to ensure it is the same length as the other lists.
         '''
-        for li in self.secondary:
-            if li.find(class_="info-label small-7 columns").text.strip() == 'Alcohol':
-                alcohol = li.find(class_="info small-9 columns").text.strip()
-                return alcohol
+        secondary = self.soup.find(class_="secondary-info").find_all('li')
+        for list_item in secondary:
+            if list_item.find(class_="info-label small-7 columns").text.strip() == 'Alcohol':
+                alcohol = list_item.find(class_="info small-9 columns").text.strip()
+            return alcohol
         if len(wine_dict['alcohol']) != len(wine_dict['wine'])-1:
             alcohol=np.nan
             return alcohol
