@@ -99,7 +99,7 @@ The next step is to preform some NLP preprocessing and train a model. The final 
 
 To properly get started see [samssimplescraper](https://github.com/SamuelAdamsMcGuire/simplescraper) and [wine data collection](https://github.com/SamuelAdamsMcGuire/wine_data_collection) for instructions on how to scrape the entire dataset. 
 
-Otherwise clone this repository and us the example `html` file in this to experiment with. 
+Otherwise clone this repository and us the example `html` files in this repo to experiment with. 
 
 ### Prerequisites
 
